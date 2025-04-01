@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Thiệp Chúc Mừng</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result img {
+            max-width: 90%;
+            height: auto;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #result .download-button {
+            margin-top: 15px;
+            background-color: #28a745;
+        }
+         #result .download-button:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tạo Thiệp Cá Nhân</h1>
+        <form method="POST" action="/">
+            <label for="user_text">Nhập tên hoặc lời chúc:</label>
+            <input type="text" id="user_text" name="user_text" value="{{ user_text_input or '' }}" required>
+            <button type="submit">Tạo Thiệp</button>
+        </form>
+
+        <div id="result">
+            {% if image_data %}
+                <h2>Thiệp của bạn:</h2>
+                <img src="{{ image_data }}" alt="Thiệp được tạo">
+                <br>
+                <a href="{{ image_data }}" download="thiep_{{ user_text_input or 'custom' }}.png">
+                    <button class="download-button">Tải Ảnh Xuống</button>
+                </a>
+            {% endif %}
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
